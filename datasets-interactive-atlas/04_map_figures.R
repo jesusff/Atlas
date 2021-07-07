@@ -80,13 +80,13 @@ if (AtlasIndex != "pr") {  # case of precipitation
   n <- 0
   s <- 0.5
   ct <- "Reds"
-  revc <- TRUE
+  revc <- FALSE
 } else {
   m <- 50
   n <- -50
   s <- 5
   ct <- "BrBG"
-  revc <- FALSE
+  revc <- TRUE
 }
 
 ## COMPUTE DELTAS --------------------------------------------------------------
