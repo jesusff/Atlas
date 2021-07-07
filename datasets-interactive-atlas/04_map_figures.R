@@ -201,11 +201,13 @@ coast.rob <- spTransform(coast, CRSobj = CRS("+proj=robin +lon_0=150 +x_0=0 +y_0
 regions <- readOGR(regions.dir)
 regions.rob <- spTransform(regions, CRSobj = CRS("+proj=robin +lon_0=150 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"))
 
-# PLOT MAPS --------------------------------------------------------------------
+# PLOT MAP --------------------------------------------------------------------
 
-what.to.plot <- aggregateGrid(delta.rob, aggr.mem = list(FUN = mean))
+# Calculate the ensemble mean (of the absolute or relative delta)
+out <- aggregateGrid(delta.rob, aggr.mem = list(FUN = mean))
+#out <- aggregateGrid(rel.delta.rob, aggr.mem = list(FUN = mean))
 
-spatialPlot(what.to.plot, 
+pl <- spatialPlot(out, 
             color.theme = ct, 
             rev.colors = revc, 
             at = seq(n, m, s), 
@@ -215,64 +217,10 @@ spatialPlot(what.to.plot,
             sp.layout = list(uncer1.hatch, uncer2.hatch, list(coast.rob, col = "purple4", first = FALSE), list(coast.rob, col = "black", first = FALSE)),
             par.settings = list(axis.line = list(col = 'transparent')))
 
-
-## WORLD MAP -------------------------------------------------------------------
-
-# Spatial objects (regions and coastline)
-regs <- as(regions, "SpatialPolygons")
-coast <- readOGR(coast.dir)
-proj4string(coast) <- proj4string(regs)
-
-# Apply the Robinson's projection
-robin.proj.string <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
-rregs <- spTransform(regs, CRS(robin.proj.string))
-ccoast <- spTransform(coast, CRS(robin.proj.string))
-delta.p <- lapply(delta, function(x) {
-  warpGrid(x, original.CRS = CRS("+init=epsg:4326"), new.CRS = CRS(robin.proj.string))
-})
-
-# Prepare the hatching spatial object
-l1 <- lapply(1:length(delta.p), function(x) {
-  deltaagr1 <- aggregateGrid(delta.p[[x]], aggr.mem = list(FUN = agrfun.cons, th = th))
-  c(map.hatching(clim = climatology(deltaagr1),
-                 threshold = .5,
-                 condition = "LT",
-                 density = 2),
-    "which" = x, lwd = 0.6)
-})
-
-# Calculate the ensemble mean for all periods
-delta.w <- lapply(1:length(delta.p), function(x) {
-  deltamean <- aggregateGrid(delta.p[[x]], aggr.mem = list(FUN = "mean", na.rm = TRUE))
-  deltamean$Dates$start <- "2021-01-16 00:00:00 GMT"
-  deltamean$Dates$end <- "2100-12-16 00:00:00 GMT"
-  return(deltamean)
-})
-
-# Handle periods as members to create a multipanel
-delta.m <- bindGrid(delta.w, dimension = "member")
-delta.m[["Members"]] <- paste0("p", unlist(lapply(years.ssp, function(l) {
-  paste(range(l), collapse = "_")
-})), "_", length(membernames), "_models")
-
-# Plot final maps 
-p <- spatialPlot(delta.m, set.min = n, set.max = m, at = seq(n, m, s),
-                 layout = c(1, length(years.ssp)),
-                 as.table = TRUE,
-                 strip = FALSE,
-                 main = paste("season", paste(season, collapse = "-")),
-                 color.theme = ct, backdrop.theme = "coastline",
-                 colorkey = list(at = seq(n, m, s),
-                                 labels = list(at = seq(n, m, s*2),
-                                               labels = c(as.character(seq(n, m, s*2)[-c(length(seq(n, m, s*2)))]),
-                                                          paste0(">=", seq(n, m, s*2)[length(seq(n, m, s*2))])))),
-                 sp.layout = list(list(ccoast, first = FALSE), l1, list(rregs, first = FALSE, lwd = 1.5)))
-
-# The map can be visulised on screen by typing 'print(p)'
+pl
 
 # Export the figure as PDF file
-pdf(paste0(out.dir, "/World_delta_", AtlasIndex, "_", scenario, "_",  paste(season, collapse = "-"),".pdf"), width = 10, height = 10)
-print(p)
+pdf(paste0(out.dir, "/Delta_", AtlasIndex, "_", scenario, "_",  paste(season, collapse = "-"),".pdf"), width = 10, height = 10)
+print(pl)
 dev.off()
 
-# END                  
