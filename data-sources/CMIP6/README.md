@@ -1,4 +1,4 @@
-# CMIP6 Inventory
+# CMIP6 data sources
 
 <table border="1" class="dataframe">
   <thead>

@@ -1,4 +1,4 @@
-# CORDEX Inventory
+# CORDEX data sources
 
 <table border="1" class="dataframe">
   <thead>
