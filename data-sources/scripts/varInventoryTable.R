@@ -62,6 +62,6 @@ varInventoryTable <- function(datasets, output.file = NULL, plot = FALSE) {
 library(loadeR)
 loginUDG("username","password")
 pattern <- "CMIP6"
-destfile <- "CMIP6_inventory.csv"
+destfile <- "CMIP6_data-sources.csv"
 datasets <- UDG.datasets(pattern)$CMIP6
 varInventoryTable(datasets, output.file = destfile)
