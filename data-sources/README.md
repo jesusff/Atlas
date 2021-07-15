@@ -1,6 +1,6 @@
-# Inventory of CMIP5, CMIP6 and CORDEX datasets used
+# Data sources for CMIP5, CMIP6 and CORDEX datasets used
 
-The inventories of model simulations used for the different experiments and scenarios are included here, indicating the availability of the different variables as well as auxiliary fixed fields, such as the land/sea mask (sftlf). The following documents provide a full overview of the simulations available: 
+The sources of data for model simulations used for the different experiments and scenarios are included here, indicating the availability of the different variables as well as auxiliary fixed fields, such as the land/sea mask (sftlf). The following documents provide a full overview of the simulations available: 
 
  * [CMIP5_simulations_ATLAS.xlxs](CMIP5_simulations_ATLAS.xlxs)
  * [CMIP6_simulations_ATLAS.xlxs](CMIP6_simulations_ATLAS.xlxs)
