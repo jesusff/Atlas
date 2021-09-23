@@ -1,8 +1,8 @@
 ---
 name: Problem report
-about: Report problems found
+about: Report errata and other technical problems found. Please, use labels: errata, problem, or suggestion to further classify your report
 title: ''
-labels: errata
+labels: ''
 assignees: ''
 
 ---
