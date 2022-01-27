@@ -17,4 +17,5 @@ This repository supporting AR6 WGI is frozen, and does not accept any further co
  - Discussing the current state of the repository
  - Submitting a fix
  - Providing notebooks/scripts in alternative programming languages
- - Proposing new notebooks/scripts exploiting the data
+ - Proposing new notebooks/scripts exploiting the data 
+ - 
