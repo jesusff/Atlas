@@ -12,4 +12,4 @@ To report an issue with this **Atlas GitHub repository** please:
  1. Make sure that the issue has not been covered yet. Check [here](https://github.com/IPCC-WG1/Atlas/issues?q=-label%3AIA+-label%3Areview).
  2. Open a [blank issue](https://github.com/IPCC-WG1/Atlas/issues/new).
 
-**Disclaimer:** Users interested in reporting officially an errata should follow directly the [official IPCC errata procedure] (https://www.ipcc.ch/report/ar6/wg1/#errata). 
+**Disclaimer:** Users interested in reporting officially an errata should follow directly the [official IPCC errata procedure](https://www.ipcc.ch/report/ar6/wg1/#errata). 
